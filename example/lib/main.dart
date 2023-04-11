@@ -142,10 +142,18 @@ class _ChatScreenState extends State<ChatScreen> {
             cameraIconColor: theme.cameraIconColor,
             galleryIconColor: theme.galleryIconColor,
           ),
-          replyMessageColor: theme.replyMessageColor,
+          replyMessage: TextStyle(
+            color: theme.replyMessageColor,
+            fontSize: 14,
+            fontWeight: FontWeight.w400,
+          ),
           defaultSendButtonColor: theme.sendButtonColor,
           replyDialogColor: theme.replyDialogColor,
-          replyTitleColor: theme.replyTitleColor,
+          replyTitleMessage: TextStyle(
+            color: theme.replyTitleColor,
+            fontSize: 16,
+            fontWeight: FontWeight.w500,
+          ),
           textFieldBackgroundColor: theme.textFieldBackgroundColor,
           closeIconColor: theme.closeIconColor,
           textFieldConfig: TextFieldConfiguration(
