@@ -177,13 +177,13 @@ class SendMessageWidgetState extends State<SendMessageWidget> {
                                         children: [
                                           Text(
                                             replyTitle,
-                                            style: TextStyle(
-                                              color: widget.sendMessageConfig
-                                                      ?.replyTitleColor ??
-                                                  Colors.deepPurple,
-                                              fontWeight: FontWeight.bold,
-                                              letterSpacing: 0.25,
-                                            ),
+                                            style: widget.sendMessageConfig
+                                                    ?.replyTitleMessage ??
+                                                TextStyle(
+                                                  color: Colors.deepPurple,
+                                                  fontWeight: FontWeight.bold,
+                                                  letterSpacing: 0.25,
+                                                ),
                                           ),
                                           IconButton(
                                             constraints: const BoxConstraints(),
@@ -208,12 +208,12 @@ class SendMessageWidgetState extends State<SendMessageWidget> {
                                           state.message,
                                           maxLines: 1,
                                           overflow: TextOverflow.ellipsis,
-                                          style: TextStyle(
-                                            fontSize: 12,
-                                            color: widget.sendMessageConfig
-                                                    ?.replyMessageColor ??
-                                                Colors.black,
-                                          ),
+                                          style: widget.sendMessageConfig
+                                                  ?.replyMessage ??
+                                              TextStyle(
+                                                fontSize: 12,
+                                                color: Colors.black,
+                                              ),
                                         ),
                                     ],
                                   ),
@@ -253,11 +253,11 @@ class SendMessageWidgetState extends State<SendMessageWidget> {
         if (replyMessage.voiceMessageDuration != null)
           Text(
             replyMessage.voiceMessageDuration!.toHHMMSS(),
-            style: TextStyle(
-              fontSize: 12,
-              color:
-                  widget.sendMessageConfig?.replyMessageColor ?? Colors.black,
-            ),
+            style: widget.sendMessageConfig?.replyMessage ??
+                TextStyle(
+                  fontSize: 12,
+                  color: Colors.black,
+                ),
           ),
       ],
     );
@@ -269,13 +269,13 @@ class SendMessageWidgetState extends State<SendMessageWidget> {
         Icon(
           Icons.photo,
           size: 20,
-          color: widget.sendMessageConfig?.replyMessageColor ??
+          color: widget.sendMessageConfig?.replyMessage?.color ??
               Colors.grey.shade700,
         ),
         Text(
           PackageStrings.photo,
           style: TextStyle(
-            color: widget.sendMessageConfig?.replyMessageColor ?? Colors.black,
+            color: widget.sendMessageConfig?.replyMessage?.color ?? Colors.black,
           ),
         ),
       ],

@@ -37,11 +37,11 @@ class SendMessageConfiguration {
   /// Used to give reply dialog color.
   final Color? replyDialogColor;
 
-  /// Used to give color to title of reply pop-up.
-  final Color? replyTitleColor;
+  /// Used to give your own style to title reply message.
+  final TextStyle? replyTitleMessage;
 
-  /// Used to give color to reply message.
-  final Color? replyMessageColor;
+  /// Used to give your own style to the reply message.
+  final TextStyle? replyMessage;
 
   /// Used to give color to close icon in reply pop-up.
   final Color? closeIconColor;
@@ -68,8 +68,8 @@ class SendMessageConfiguration {
     this.defaultSendButtonColor,
     this.sendButtonIcon,
     this.replyDialogColor,
-    this.replyTitleColor,
-    this.replyMessageColor,
+    this.replyTitleMessage,
+    this.replyMessage,
     this.closeIconColor,
     this.allowRecordingVoice = true,
     this.voiceRecordingConfiguration,
