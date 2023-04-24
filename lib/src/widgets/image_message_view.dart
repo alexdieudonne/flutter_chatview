@@ -25,7 +25,7 @@ import 'dart:io';
 import 'package:chatview/src/extensions/extensions.dart';
 import 'package:chatview/src/models/models.dart';
 import 'package:flutter/material.dart';
-import 'package:insta_image_viewer/insta_image_viewer.dart';
+import 'package:full_screen_image_null_safe/full_screen_image_null_safe.dart';
 
 import 'reaction_widget.dart';
 import 'share_icon.dart';
@@ -101,38 +101,45 @@ class ImageMessageView extends StatelessWidget {
                         BorderRadius.circular(14),
                     child: (() {
                       if (imageUrl.isUrl) {
-                        return InstaImageViewer(
-                            child: Image.network(
-                          imageUrl,
-                          fit: BoxFit.fitHeight,
-                          loadingBuilder: (context, child, loadingProgress) {
-                            if (loadingProgress == null) return child;
-                            return Center(
-                              child: CircularProgressIndicator(
-                                value: loadingProgress.expectedTotalBytes !=
-                                        null
-                                    ? loadingProgress.cumulativeBytesLoaded /
-                                        loadingProgress.expectedTotalBytes!
-                                    : null,
-                              ),
-                            );
-                          },
+                        return FullScreenWidget(
+                            child: Hero(
+                          tag: imageUrl,
+                          child: Image.network(
+                            imageUrl,
+                            fit: BoxFit.fitHeight,
+                            loadingBuilder: (context, child, loadingProgress) {
+                              if (loadingProgress == null) return child;
+                              return Center(
+                                child: CircularProgressIndicator(
+                                  value: loadingProgress.expectedTotalBytes !=
+                                          null
+                                      ? loadingProgress.cumulativeBytesLoaded /
+                                          loadingProgress.expectedTotalBytes!
+                                      : null,
+                                ),
+                              );
+                            },
+                          ),
                         ));
                       } else if (imageUrl.fromMemory) {
-                        return InstaImageViewer(
+                        return FullScreenWidget(
+                            child: Hero(
+                          tag: imageUrl,
                           child: Image.memory(
                             base64Decode(imageUrl
                                 .substring(imageUrl.indexOf('base64') + 7)),
                             fit: BoxFit.fill,
                           ),
-                        );
+                        ));
                       } else {
-                        return InstaImageViewer(
+                        return FullScreenWidget(
+                            child: Hero(
+                          tag: imageUrl,
                           child: Image.file(
                             File(imageUrl),
                             fit: BoxFit.fill,
                           ),
-                        );
+                        ));
                       }
                     }()),
                   ),
