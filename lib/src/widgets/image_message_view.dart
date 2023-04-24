@@ -75,60 +75,63 @@ class ImageMessageView extends StatelessWidget {
         if (isMessageBySender) iconButton,
         Stack(
           children: [
-            GestureDetector(
-              onTap: () => imageMessageConfig?.onTap != null
-                  ? imageMessageConfig?.onTap!(imageUrl)
-                  : null,
-              child: Transform.scale(
-                scale: highlightImage ? highlightScale : 1.0,
-                alignment: isMessageBySender
-                    ? Alignment.centerRight
-                    : Alignment.centerLeft,
-                child: Container(
-                  padding: imageMessageConfig?.padding ?? EdgeInsets.zero,
-                  margin: imageMessageConfig?.margin ??
-                      EdgeInsets.only(
-                        top: 6,
-                        right: isMessageBySender ? 6 : 0,
-                        left: isMessageBySender ? 0 : 6,
-                        bottom: message.reaction.reactions.isNotEmpty ? 15 : 0,
-                      ),
-                  height: imageMessageConfig?.height ?? 200,
-                  width: imageMessageConfig?.width ?? 150,
-                  child: ClipRRect(
-                    borderRadius: imageMessageConfig?.borderRadius ??
-                        BorderRadius.circular(14),
-                    child: (() {
-                      if (imageUrl.isUrl) {
-                        return Image.network(
-                          imageUrl,
-                          fit: BoxFit.fitHeight,
-                          loadingBuilder: (context, child, loadingProgress) {
-                            if (loadingProgress == null) return child;
-                            return Center(
-                              child: CircularProgressIndicator(
-                                value: loadingProgress.expectedTotalBytes !=
-                                        null
-                                    ? loadingProgress.cumulativeBytesLoaded /
-                                        loadingProgress.expectedTotalBytes!
-                                    : null,
-                              ),
-                            );
-                          },
-                        );
-                      } else if (imageUrl.fromMemory) {
-                        return Image.memory(
-                          base64Decode(imageUrl
-                              .substring(imageUrl.indexOf('base64') + 7)),
-                          fit: BoxFit.fill,
-                        );
-                      } else {
-                        return Image.file(
-                          File(imageUrl),
-                          fit: BoxFit.fill,
-                        );
-                      }
-                    }()),
+            Hero(
+              tag: imageUrl,
+              child: GestureDetector(
+                onTap: () => imageMessageConfig?.onTap != null
+                    ? imageMessageConfig?.onTap!(imageUrl)
+                    : null,
+                child: Transform.scale(
+                  scale: highlightImage ? highlightScale : 1.0,
+                  alignment: isMessageBySender
+                      ? Alignment.centerRight
+                      : Alignment.centerLeft,
+                  child: Container(
+                    padding: imageMessageConfig?.padding ?? EdgeInsets.zero,
+                    margin: imageMessageConfig?.margin ??
+                        EdgeInsets.only(
+                          top: 6,
+                          right: isMessageBySender ? 6 : 0,
+                          left: isMessageBySender ? 0 : 6,
+                          bottom: message.reaction.reactions.isNotEmpty ? 15 : 0,
+                        ),
+                    height: imageMessageConfig?.height ?? 200,
+                    width: imageMessageConfig?.width ?? 150,
+                    child: ClipRRect(
+                      borderRadius: imageMessageConfig?.borderRadius ??
+                          BorderRadius.circular(14),
+                      child: (() {
+                        if (imageUrl.isUrl) {
+                          return Image.network(
+                            imageUrl,
+                            fit: BoxFit.fitHeight,
+                            loadingBuilder: (context, child, loadingProgress) {
+                              if (loadingProgress == null) return child;
+                              return Center(
+                                child: CircularProgressIndicator(
+                                  value: loadingProgress.expectedTotalBytes !=
+                                          null
+                                      ? loadingProgress.cumulativeBytesLoaded /
+                                          loadingProgress.expectedTotalBytes!
+                                      : null,
+                                ),
+                              );
+                            },
+                          );
+                        } else if (imageUrl.fromMemory) {
+                          return Image.memory(
+                            base64Decode(imageUrl
+                                .substring(imageUrl.indexOf('base64') + 7)),
+                            fit: BoxFit.fill,
+                          );
+                        } else {
+                          return Image.file(
+                            File(imageUrl),
+                            fit: BoxFit.fill,
+                          );
+                        }
+                      }()),
+                    ),
                   ),
                 ),
               ),
